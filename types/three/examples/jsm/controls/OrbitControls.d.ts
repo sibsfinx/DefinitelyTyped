@@ -1,5 +1,16 @@
 import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
 
+declare enum STATE {
+    NONE = "NONE",
+    ROTATE = "ROTATE",
+    DOLLY = "DOLLY",
+    PAN = "PAN",
+    TOUCH_ROTATE = "TOUCH_ROTATE",
+    TOUCH_PAN = "TOUCH_PAN",
+    TOUCH_DOLLY_PAN = "TOUCH_DOLLY_PAN",
+    TOUCH_DOLLY_ROTATE = "TOUCH_DOLLY_ROTATE"
+}
+
 export class OrbitControls {
     constructor(object: Camera, domElement?: HTMLElement);
 
@@ -29,12 +40,17 @@ export class OrbitControls {
     dampingFactor: number;
 
     enableZoom: boolean;
+    enableZoomWithCtrl: boolean;
     zoomSpeed: number;
 
     enableRotate: boolean;
+    enableRotateX: boolean;
+    enableRotateY: boolean;
     rotateSpeed: number;
 
     enablePan: boolean;
+    enablePanX: boolean;
+    enablePanY: boolean;
     panSpeed: number;
     screenSpacePanning: boolean;
     keyPanSpeed: number;
@@ -49,11 +65,27 @@ export class OrbitControls {
 
     update(): boolean;
 
+    rotateLeft(): void;
+    rotateUp(): void;
+    pan(): void;
+    panLeft(): void;
+    panUp(): void;
+    dollyIn(): void;
+    dollyOut(): void;
+
     listenToKeyEvents(domElement: HTMLElement): void;
 
     saveState(): void;
+    saveStateExternal(): {
+        target: Vector3,
+        position: any,
+        zoom: any
+    }
 
     reset(): void;
+    resetExternal(): void;
+
+    getState(): STATE;
 
     dispose(): void;
 
