@@ -1,6 +1,6 @@
-import { Camera, MOUSE, TOUCH, Vector3 } from '../../../src/Three';
+import { Camera, MOUSE, TOUCH, Vector3, Matrix4 } from '../../../src/Three';
 
-declare enum STATE {
+export enum OrbitControlsStates {
     NONE = "NONE",
     ROTATE = "ROTATE",
     DOLLY = "DOLLY",
@@ -68,10 +68,10 @@ export class OrbitControls {
     rotateLeft(): void;
     rotateUp(): void;
     pan(): void;
-    panLeft(): void;
-    panUp(): void;
-    dollyIn(): void;
-    dollyOut(): void;
+    panLeft(distance: number, objectMatrix: Matrix4): void;
+    panUp(distance: number, objectMatrix: Matrix4): void;
+    dollyIn(dollyScale: number): void;
+    dollyOut(dollyScale: number): void;
 
     listenToKeyEvents(domElement: HTMLElement): void;
 
@@ -83,9 +83,13 @@ export class OrbitControls {
     }
 
     reset(): void;
-    resetExternal(): void;
+    resetExternal(parsedState: {
+        target: Vector3;
+        position: Vector3;
+        zoom: number;
+    }): void;
 
-    getState(): STATE;
+    getState(): OrbitControlsStates;
 
     dispose(): void;
 
