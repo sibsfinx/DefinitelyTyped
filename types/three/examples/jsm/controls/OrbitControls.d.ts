@@ -65,8 +65,8 @@ export class OrbitControls {
 
     update(): boolean;
 
-    rotateLeft(): void;
-    rotateUp(): void;
+    rotateLeft(angle: number): void;
+    rotateUp(angle: number): void;
     pan(): void;
     panLeft(distance: number, objectMatrix: Matrix4): void;
     panUp(distance: number, objectMatrix: Matrix4): void;
